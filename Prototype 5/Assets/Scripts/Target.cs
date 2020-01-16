@@ -5,11 +5,11 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     Rigidbody targetRb;
-    private float minSpeed = 12;
-    private float maxSpeed = 16;
+    private float minForce = 12;
+    private float maxForce = 16;
     private float torqueRange = 10;
     private float xRange = 4;
-    private float ySpawnPos = -6;
+    private float ySpawnPos = -2;
 
     
     // Start is called before the first frame update
@@ -27,9 +27,19 @@ public class Target : MonoBehaviour
         
     }
 
+    private void OnMouseDown()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
+
     Vector3 RandomForce()
     {
-        return Vector3.up * Random.Range(minSpeed, maxSpeed);
+        return Vector3.up * Random.Range(minForce, maxForce);
     }
 
     float RandomTorque()

@@ -13,6 +13,7 @@ public class Target : MonoBehaviour
     private float ySpawnPos = -2;
 
     public int pointValue;
+    public ParticleSystem explosionParticle;
 
     
     // Start is called before the first frame update
@@ -38,6 +39,7 @@ public class Target : MonoBehaviour
         {
             pointValue = Random.Range(0, 25);
         }
+        Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
         gameManager.UpdateScore(pointValue);
     }
 

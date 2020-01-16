@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    Rigidbody targetRb;
+    private Rigidbody targetRb;
+    private GameManager gameManager;
     private float minForce = 12;
     private float maxForce = 16;
     private float torqueRange = 10;
     private float xRange = 4;
     private float ySpawnPos = -2;
+
+    public int pointValue;
 
     
     // Start is called before the first frame update
@@ -18,6 +21,7 @@ public class Target : MonoBehaviour
         targetRb = GetComponent<Rigidbody>();
         targetRb.AddForce(RandomForce(), ForceMode.Impulse);
         targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         transform.position = RandomSpawnPos();
     }
 
@@ -30,6 +34,11 @@ public class Target : MonoBehaviour
     private void OnMouseDown()
     {
         Destroy(gameObject);
+        if(pointValue == 0)
+        {
+            pointValue = Random.Range(0, 25);
+        }
+        gameManager.UpdateScore(pointValue);
     }
 
     private void OnTriggerEnter(Collider other)
